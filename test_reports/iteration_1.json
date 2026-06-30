@@ -1,0 +1,30 @@
+{
+  "summary": "End-to-end first-finish test of Otakuverse: backend APIs and React frontend (Home/Search/Detail/Browse/Studio nav) all working. DB seeded as expected (37 animes, 72 directors, 65 voice_actors, 63 studios, 37 soundtracks, 20 genres). Jikan poster images render. Portuguese UI strings present. No blockers found.",
+  "tested_scope": ["backend", "frontend", "integration"],
+  "passed": [
+    "GET /api/stats returns the 6 expected counts (animes:37, directors:72, voice_actors:65, studios:63, soundtracks:37, genres:20)",
+    "GET /api/animes returns 37 enriched animes with image_url, genres, studios populated",
+    "GET /api/animes/73 (Death Note) returns full detail with directors=[Tetsuro Araki], studio=[Madhouse], soundtrack opening='the WORLD' por Nightmare, poster from MAL CDN",
+    "GET /api/animes/9999 returns 404",
+    "GET /api/genres, /api/directors, /api/voice-actors, /api/studios all return non-empty arrays",
+    "GET /api/animes?genre=1&limit=3 filter works (returns Action-genre animes)",
+    "GET /api/directors/60 returns Hiroyuki Sawano (animes list empty as he is a soundtrack composer, not anime director - matches data model)",
+    "GET /api/studios/MAPPA returns MAPPA with 5+ related animes; /api/studios/Madhouse returns 5 animes including Trigun & Death Note",
+    "GET /api/search?q=naruto returns Naruto in animes",
+    "GET /api/search?q=mappa returns MAPPA studio",
+    "GET /api/search?q=sawano returns Hiroyuki Sawano director and Sawano soundtrack",
+    "GET /api/search?q=action returns Action genre",
+    "Home (/) renders OTAKUVERSE hero, hero-search-input, all 6 stat cards with correct counts, anime cards display Jikan poster images",
+    "Hero search submit navigates to /search?q=naruto; all 6 tabs (tab-animes, tab-directors, tab-voice_actors, tab-studios, tab-soundtracks, tab-genres) render with counts; first tab with results (Animes 1) auto-selected; Naruto anime card displayed",
+    "Detail /anime/73 shows anime-title='Death Note', poster image, genres chips (Suspense/Mystery/Supernatural), 8/10 rating, 2006-2007 Fall, 37 eps, full description, director Tetsuro Araki, studio Madhouse, voice actors, soundtrack with Yoshihisa Hirano/Hideki Taniuchi and Opening 'the WORLD' por Nightmare",
+    "Browse /browse renders 37 cards by default, filter-genre native select reduces to 19 cards for Action (id=1), 'Limpar filtros' resets back to 37",
+    "Navigation from detail (Madhouse link) to /studio/Madhouse renders 5 related anime cards with posters and studio metadata (founded 1972, founders, official site)",
+    "Zero console errors observed across pages tested"
+  ],
+  "failed": [],
+  "action_items": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "retest_needed": false,
+  "full_testing_deferred": true,
+  "notes": "Browse uses native HTML <select> elements (not Radix Select). Tests must use page.select_option(...) rather than click+role=option. Director Hiroyuki Sawano's 'animes' list is empty because he is classified Tipo='Banda Sonora'; he is correctly linked via soundtracks instead — matches the SQL schema, not a bug."
+}
