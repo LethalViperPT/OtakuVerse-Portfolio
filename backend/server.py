@@ -17,7 +17,7 @@ db_name = os.getenv('DB_NAME', 'otaku_db')
 if not mongo_url:
     raise ValueError("A variável de ambiente MONGO_URL não foi encontrada!")
 
-client = AsyncIOMotorClient(mongo_url)
+client = AsyncIOMotorClient(mongo_url, tlsAllowInvalidCertificates=True)
 db = client[db_name]
 
 # Inicializar a App
