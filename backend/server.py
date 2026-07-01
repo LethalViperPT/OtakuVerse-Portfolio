@@ -20,7 +20,23 @@ if not mongo_url:
 client = AsyncIOMotorClient(mongo_url)
 db = client[db_name]
 
+# Inicializar a App
 app = FastAPI(title="Otakuverse API")
+
+# ---------- Configuração do CORS ----------
+# Definido logo no início para garantir que todas as rotas herdam as permissões
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://otakuverse-web.onrender.com",  # O teu site oficial no Render
+        "http://localhost:3000"                 # Para quando testares localmente
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Inicializar o Router com o prefixo /api
 api_router = APIRouter(prefix="/api")
 
 # ---------- Helpers ----------
@@ -126,7 +142,6 @@ async def list_animes(
         query["Classificacao"] = {"$gte": min_rating}
 
     if genre:
-        # Multi-genre: anime must match ALL selected genres (AND logic)
         anime_ids_sets = []
         for g in genre:
             links = await db.animegeneros.find({"IdGenero": g}, {"_id": 0}).to_list(500)
@@ -172,7 +187,6 @@ async def get_director(director_id: int):
     director = await db.diretor.find_one({"IdDiretor": director_id}, {"_id": 0})
     if not director:
         raise HTTPException(404, "Director not found")
-    # Animes for this director
     links = await db.animediretor.find({"idDiretor": director_id}, {"_id": 0}).to_list(100)
     anime_ids = [link["idAnime"] for link in links]
     animes = await db.animes.find({"IdAnime": {"$in": anime_ids}}, {"_id": 0}).to_list(100)
@@ -280,17 +294,10 @@ async def global_search(q: str = Query(..., min_length=1)):
         },
     }
 
-
+# Incluir o router após a definição de todas as rotas e do middleware
 app.include_router(api_router)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
+# Configuração de logs
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
