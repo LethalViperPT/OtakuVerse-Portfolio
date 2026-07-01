@@ -24,14 +24,11 @@ db = client[db_name]
 app = FastAPI(title="Otakuverse API")
 
 # ---------- Configuração do CORS ----------
-# Definido logo no início para garantir que todas as rotas herdam as permissões
+# Modo universal: permite qualquer origem sem conflitos de credenciais
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://otakuverse-web.onrender.com",  # O teu site oficial no Render
-        "http://localhost:3000"                 # Para quando testares localmente
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
