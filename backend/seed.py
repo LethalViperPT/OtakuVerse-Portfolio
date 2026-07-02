@@ -237,7 +237,9 @@ def main():
 
     # Fetch posters from Jikan (skip if already seeded)
     existing_posters = {
-        a["IdAnime"]: a for a in db.animes.find({}, {"IdAnime": 1, "image_url": 1, "_id": 0})
+        a["IdAnime"]: a for a in db.animes.find(
+            {}, {"IdAnime": 1, "image_url": 1, "trailer_url": 1, "mal_id": 1, "mal_url": 1, "_id": 0}
+        )
     }
 
     for a in animes:
