@@ -184,7 +184,17 @@ def fetch_poster(title: str) -> dict:
                     or a.get("images", {}).get("jpg", {}).get("large_image_url")
                     or a.get("images", {}).get("jpg", {}).get("image_url")
                 )
-                trailer = a.get("trailer", {}).get("url")
+                trailer_obj = a.get("trailer") or {}
+                trailer = (
+                    trailer_obj.get("url")
+                    or (
+                        f"https://www.youtube.com/watch?v={trailer_obj.get('youtube_id')}"
+                        if trailer_obj.get("youtube_id")
+                        else None
+                    )
+                    or trailer_obj.get("embed_url")
+                )
+                log.info("  trailer raw for '%s': %s -> resolved: %s", title[:40], trailer_obj, trailer)
                 return {
                     "image_url": img,
                     "trailer_url": trailer,
@@ -244,7 +254,7 @@ def main():
 
     for a in animes:
         cached = existing_posters.get(a["IdAnime"])
-        if cached and cached.get("image_url"):
+        if cached and cached.get("image_url") and cached.get("trailer_url"):
             a["image_url"] = cached.get("image_url")
             a["trailer_url"] = cached.get("trailer_url")
             a["mal_id"] = cached.get("mal_id")
@@ -252,7 +262,12 @@ def main():
             continue
         info = fetch_poster(a["Titulo"])
         a.update(info)
-        log.info("[%s] poster=%s", a["Titulo"][:50], "yes" if a.get("image_url") else "NO")
+        log.info(
+            "[%s] poster=%s trailer=%s",
+            a["Titulo"][:50],
+            "yes" if a.get("image_url") else "NO",
+            "yes" if a.get("trailer_url") else "NO",
+        )
         time.sleep(0.6)  # Jikan rate limit: 3 req/s
 
     # Drop and re-insert
