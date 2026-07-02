@@ -24,7 +24,6 @@ db = client[db_name]
 app = FastAPI(title="Otakuverse API")
 
 # ---------- Configuração do CORS ----------
-# Modo universal: permite qualquer origem sem conflitos de credenciais
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -77,6 +76,20 @@ async def enrich_anime(anime: dict, full: bool = False) -> dict:
         # Soundtracks
         sound = await db.bandasonora.find({"IdAnime": aid}, {"_id": 0}).to_list(50)
         anime["soundtracks"] = sound
+
+        # ---------- MÁGICA DO TRAILER FALLBACK ----------
+        # Se não houver trailer_url guardado ou se estiver vazio, tentamos usar o Opening
+        if not anime.get("trailer_url"):
+            if sound and len(sound) > 0:
+                # Vamos buscar o primeiro opening disponível na tabela de bandas sonoras
+                primeiro_opening = sound[0].get("Opening")
+                if primeiro_opening:
+                    # Removemos texto desnecessário do início se houver (ex: "1: ", "2: ")
+                    termo_pesquisa = primeiro_opening.split(":")[-1].strip()
+                    # Geramos um link de pesquisa embutido do YouTube focado no Opening oficial
+                    query_formatada = f"{anime['Titulo']} {termo_pesquisa} Opening".replace(" ", "+")
+                    anime["trailer_url"] = f"https://www.youtube-nocookie.com/embed?listType=search&list={query_formatada}"
+        # ------------------------------------------------
 
         # Studio details (with founders / sites)
         studio_details = await db.estudioanimacao.find(
@@ -291,10 +304,8 @@ async def global_search(q: str = Query(..., min_length=1)):
         },
     }
 
-# Incluir o router após a definição de todas as rotas e do middleware
 app.include_router(api_router)
 
-# Configuração de logs
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
