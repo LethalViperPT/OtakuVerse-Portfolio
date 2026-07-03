@@ -106,7 +106,8 @@ async def root():
     return {"message": "Otakuverse API"}
 
 
-@api_router.get("/stats")
+# Alterado para aceitar HEAD (UptimeRobot plano Free) e GET simultaneamente
+@api_router.api_route("/stats", methods=["GET", "HEAD"])
 async def stats():
     counts = {
         "animes": await db.animes.count_documents({}),

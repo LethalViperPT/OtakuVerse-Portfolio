@@ -39,9 +39,11 @@ def main():
     animes = list(db.animes.find({"mal_id": {"$ne": None}}, {"IdAnime": 1, "Titulo": 1, "mal_id": 1, "trailer_url": 1, "_id": 0}))
     log.info("Found %d animes with mal_id", len(animes))
     for a in animes:
-        if a.get("trailer_url"):
-            log.info("[%s] already has trailer, skipping", a["Titulo"][:40])
-            continue
+        # AS LINHAS ABAIXO FORAM COMENTADAS PARA ELE NÃO SALTAR NENHUM ANIME
+        # if a.get("trailer_url"):
+        #     log.info("[%s] already has trailer, skipping", a["Titulo"][:40])
+        #     continue
+        
         embed = fetch_trailer(a["mal_id"])
         db.animes.update_one({"IdAnime": a["IdAnime"]}, {"$set": {"trailer_url": embed}})
         log.info("[%s] trailer=%s", a["Titulo"][:40], "yes" if embed else "NO")
