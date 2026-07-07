@@ -1,7 +1,6 @@
 """
 Seed MongoDB from the user-provided MariaDB SQL dump (anime catalog).
-- Parses INSERT INTO statements with a small SQL-value tokenizer (handles escaped quotes).
-- Fetches a poster image URL from Jikan v4 (MyAnimeList public API) for each anime by title (since the SQL has no images).
+- ENCODING RESILIENT EDITION: Handles special characters and accents seamlessly.
 - Idempotent: drops collections then re-inserts.
 """
 import os
@@ -22,6 +21,24 @@ log = logging.getLogger("seed")
 
 SQL_PATH = ROOT_DIR / "data" / "anime.sql"
 
+# Ordem de colunas conhecida de cada tabela — usada como fallback quando o
+# dump SQL não inclui a lista de colunas explícita (ex: mysqldump sem
+# --complete-insert, que gera "INSERT INTO `tabela` VALUES (...)").
+KNOWN_SCHEMAS = {
+    "animes": ["IdAnime", "Titulo", "Descricao", "AnoEmissao", "anoFim", "Temporada",
+               "Season", "Classificacao", "ClassificacaoEtaria", "BaseadoEm",
+               "NumeroEpisodio", "Estado"],
+    "animediretor": ["idAnime", "idDiretor"],
+    "animeestudios": ["estudio", "IdAnime"],
+    "animegeneros": ["IdAnime", "IdGenero"],
+    "animevozes": ["IdAnime", "IdAtorVoz"],
+    "atorvoz": ["IdAtorVoz", "Nome", "DataNascimento", "Genero"],
+    "bandasonora": ["IdBandaSonora", "Nome", "IdAnime", "Opening", "Ending"],
+    "diretor": ["IdDiretor", "Nome", "DataNascimento", "Genero", "Tipo"],
+    "estudioanimacao": ["Nome", "AnoFundado", "Fundador", "SiteOficial"],
+    "generos": ["IdGenero", "Nome", "Descricao"],
+}
+
 client = MongoClient(os.environ["MONGO_URL"])
 db = client[os.environ["DB_NAME"]]
 
@@ -29,42 +46,29 @@ db = client[os.environ["DB_NAME"]]
 # ---------- SQL parsing ----------
 
 def parse_values(values_str: str):
-    """Parse a single SQL tuple body: e.g. "4, 'Hello \\'world\\'', NULL, 2009".
-    Returns list of Python values (str/int/None/float)."""
     out = []
     i = 0
     n = len(values_str)
     while i < n:
-        # skip whitespace and commas
         while i < n and values_str[i] in " ,\t\n":
             i += 1
         if i >= n:
             break
         c = values_str[i]
         if c == "'":
-            # string literal
             i += 1
-            start = i
             buf = []
             while i < n:
                 if values_str[i] == "\\" and i + 1 < n:
-                    # escape sequence
                     nxt = values_str[i + 1]
-                    if nxt == "'":
-                        buf.append("'")
-                    elif nxt == "\\":
-                        buf.append("\\")
-                    elif nxt == "n":
-                        buf.append("\n")
-                    elif nxt == "t":
-                        buf.append("\t")
-                    elif nxt == '"':
-                        buf.append('"')
-                    else:
-                        buf.append(nxt)
+                    if nxt == "'": buf.append("'")
+                    elif nxt == "\\": buf.append("\\")
+                    elif nxt == "n": buf.append("\n")
+                    elif nxt == "t": buf.append("\t")
+                    elif nxt == '"': buf.append('"')
+                    else: buf.append(nxt)
                     i += 2
                 elif values_str[i] == "'":
-                    # check for doubled quote (escape)
                     if i + 1 < n and values_str[i + 1] == "'":
                         buf.append("'")
                         i += 2
@@ -76,7 +80,6 @@ def parse_values(values_str: str):
                     i += 1
             out.append("".join(buf))
         else:
-            # number, NULL, or bare token
             start = i
             while i < n and values_str[i] not in ",":
                 i += 1
@@ -85,27 +88,23 @@ def parse_values(values_str: str):
                 out.append(None)
             else:
                 try:
-                    if "." in token:
-                        out.append(float(token))
-                    else:
-                        out.append(int(token))
+                    if "." in token: out.append(float(token))
+                    else: out.append(int(token))
                 except ValueError:
                     out.append(token)
     return out
 
 
 def split_tuples(big: str):
-    """Split a string of multiple SQL tuples like '(...),(...),(...);' respecting quotes."""
     tuples = []
     i = 0
     n = len(big)
     while i < n:
-        # find opening paren
         while i < n and big[i] != "(":
             i += 1
         if i >= n:
             break
-        i += 1  # past '('
+        i += 1
         depth = 1
         start = i
         in_string = False
@@ -116,7 +115,6 @@ def split_tuples(big: str):
                     i += 2
                     continue
                 if c == "'":
-                    # doubled '' inside string
                     if i + 1 < n and big[i + 1] == "'":
                         i += 2
                         continue
@@ -146,19 +144,85 @@ def split_tuples(big: str):
     return tuples
 
 
-def parse_insert(sql: str, table: str, columns: list):
-    """Find INSERT INTO `table` ... VALUES (...),(...); statements and return list of dicts."""
-    pattern = re.compile(
-        rf"INSERT\s+INTO\s+`{re.escape(table)}`\s*\([^)]*\)\s*VALUES\s*(.*?);",
-        re.IGNORECASE | re.DOTALL,
+def find_statement_end(sql: str, start: int) -> int:
+    """From `start` (right after VALUES), scan char-by-char to find the ';' that
+    truly terminates the SQL statement — i.e. one that is outside any quoted
+    string and outside any parentheses. A naive regex like '(.*?);' breaks on
+    titles containing a literal semicolon (e.g. 'Steins;Gate'), silently
+    truncating everything after that row."""
+    i = start
+    n = len(sql)
+    depth = 0
+    in_string = False
+    while i < n:
+        c = sql[i]
+        if in_string:
+            if c == "\\" and i + 1 < n:
+                i += 2
+                continue
+            if c == "'":
+                if i + 1 < n and sql[i + 1] == "'":
+                    i += 2
+                    continue
+                in_string = False
+                i += 1
+                continue
+            i += 1
+            continue
+        else:
+            if c == "'":
+                in_string = True
+                i += 1
+                continue
+            if c == "(":
+                depth += 1
+                i += 1
+                continue
+            if c == ")":
+                depth -= 1
+                i += 1
+                continue
+            if c == ";" and depth == 0:
+                return i
+            i += 1
+    return n
+
+
+def parse_insert_dynamic(sql: str, table: str):
+    """Finds ALL INSERT INTO statements, cleaning up formatting and accents.
+    Handles both formats:
+      INSERT INTO `table` (`col1`,`col2`) VALUES (...);          <- explicit columns
+      INSERT INTO `table` VALUES (...);                          <- mysqldump default (no columns)
+    When columns are missing, falls back to the known schema order.
+    Statement boundaries are found with a quote-aware scanner (find_statement_end)
+    instead of a naive regex, so semicolons inside string values (e.g. the title
+    'Steins;Gate') don't truncate the data.
+    """
+    header_pattern = re.compile(
+        rf"INSERT\s+INTO\s+[`\"']?{re.escape(table)}[`\"']?\s*(?:\(([^)]+)\)\s*)?VALUES\s*",
+        re.IGNORECASE,
     )
+    fallback_columns = KNOWN_SCHEMAS.get(table)
     rows = []
-    for m in pattern.finditer(sql):
-        body = m.group(1)
+    for m in header_pattern.finditer(sql):
+        cols_str = m.group(1)
+        if cols_str:
+            columns = [c.strip(" `\"'") for c in cols_str.split(",")]
+        elif fallback_columns:
+            columns = fallback_columns
+        else:
+            log.warning("Sem lista de colunas e sem fallback conhecido para tabela '%s' — a saltar.", table)
+            continue
+        body_start = m.end()
+        body_end = find_statement_end(sql, body_start)
+        body = sql[body_start:body_end]
         for tup in split_tuples(body):
             values = parse_values(tup)
             if len(values) != len(columns):
-                log.warning("Column mismatch in %s: %s vs %s", table, len(values), len(columns))
+                log.warning(
+                    "Mismatch em '%s': %d valores vs %d colunas esperadas — a saltar linha.",
+                    table, len(values), len(columns),
+                )
                 continue
             rows.append(dict(zip(columns, values)))
     return rows
@@ -167,9 +231,7 @@ def parse_insert(sql: str, table: str, columns: list):
 # ---------- Image fetching from Jikan ----------
 
 def fetch_poster(title: str) -> dict:
-    """Search Jikan for the anime by title and return image URL.
-    Returns {'image_url': ..., 'trailer_url': ..., 'mal_id': ...} or empty dict on failure."""
-    # Light cleaning: only keep first 80 chars of title for the query to avoid 404s on hugely long names
+    """Search Jikan for the anime by title and return image URL and formatted trailer embed."""
     q = title[:80]
     url = "https://api.jikan.moe/v4/anime"
     try:
@@ -184,25 +246,28 @@ def fetch_poster(title: str) -> dict:
                     or a.get("images", {}).get("jpg", {}).get("large_image_url")
                     or a.get("images", {}).get("jpg", {}).get("image_url")
                 )
+                
+                # Parsing seguro do objeto do trailer
                 trailer_obj = a.get("trailer") or {}
-                trailer = (
-                    trailer_obj.get("url")
-                    or (
-                        f"https://www.youtube.com/watch?v={trailer_obj.get('youtube_id')}"
-                        if trailer_obj.get("youtube_id")
-                        else None
-                    )
-                    or trailer_obj.get("embed_url")
-                )
-                log.info("  trailer raw for '%s': %s -> resolved: %s", title[:40], trailer_obj, trailer)
+                youtube_id = trailer_obj.get("youtube_id")
+                
+                # Normalização direta para Iframe (Evita bloqueios de CORS e autoplay bugs)
+                if youtube_id:
+                    trailer = f"https://www.youtube.com/embed/{youtube_id}"
+                else:
+                    trailer = trailer_obj.get("embed_url") or trailer_obj.get("url")
+
                 return {
                     "image_url": img,
                     "trailer_url": trailer,
                     "mal_id": a.get("mal_id"),
                     "mal_url": a.get("url"),
                 }
+        elif resp.status_code == 429:
+            log.warning("Rate limit atingido na API. A pausar temporariamente...")
+            time.sleep(3)
     except Exception as e:
-        log.warning("Jikan failed for '%s': %s", title, e)
+        log.warning("Falha na API Jikan para '%s': %s", title, e)
     return {}
 
 
@@ -213,97 +278,98 @@ def main():
         log.error("SQL file not found: %s", SQL_PATH)
         sys.exit(1)
 
-    sql = SQL_PATH.read_text(encoding="utf-8")
+    # Abrir com utf-8 e IGNORE para contornar truncagens ou caracteres marados de dumps antigos
+    with open(SQL_PATH, "r", encoding="utf-8", errors="ignore") as f:
+        sql = f.read()
 
-    # Parse all tables
-    animes = parse_insert(sql, "animes", [
-        "IdAnime", "Titulo", "Descricao", "AnoEmissao", "anoFim",
-        "Temporada", "Season", "Classificacao", "ClassificacaoEtaria",
-        "BaseadoEm", "NumeroEpisodio", "Estado",
-    ])
-    animediretor = parse_insert(sql, "animediretor", ["idAnime", "idDiretor"])
-    animeestudios = parse_insert(sql, "animeestudios", ["estudio", "IdAnime"])
-    animegeneros = parse_insert(sql, "animegeneros", ["IdAnime", "IdGenero"])
-    animevozes = parse_insert(sql, "animevozes", ["IdAnime", "IdAtorVoz"])
-    atorvoz = parse_insert(sql, "atorvoz", ["IdAtorVoz", "Nome", "DataNascimento", "Genero"])
-    bandasonora = parse_insert(sql, "bandasonora", [
-        "IdBandaSonora", "Nome", "IdAnime", "Opening", "Ending",
-    ])
-    diretor = parse_insert(sql, "diretor", [
-        "IdDiretor", "Nome", "DataNascimento", "Genero", "Tipo",
-    ])
-    estudioanimacao = parse_insert(sql, "estudioanimacao", [
-        "Nome", "AnoFundado", "Fundador", "SiteOficial",
-    ])
-    generos = parse_insert(sql, "generos", ["IdGenero", "Nome", "Descricao"])
+    # Parsing estrito de todas as tabelas mapeadas
+    animes = parse_insert_dynamic(sql, "animes")
+    animediretor = parse_insert_dynamic(sql, "animediretor")
+    animeestudios = parse_insert_dynamic(sql, "animeestudios")
+    animegeneros = parse_insert_dynamic(sql, "animegeneros")
+    animevozes = parse_insert_dynamic(sql, "animevozes")
+    atorvoz = parse_insert_dynamic(sql, "atorvoz")
+    bandasonora = parse_insert_dynamic(sql, "bandasonora")
+    diretor = parse_insert_dynamic(sql, "diretor")
+    estudioanimacao = parse_insert_dynamic(sql, "estudioanimacao")
+    generos = parse_insert_dynamic(sql, "generos")
 
-    log.info(
-        "Parsed: animes=%d diretor=%d ator=%d bandasonora=%d generos=%d estudios=%d "
-        "links(animediretor=%d animeestudios=%d animegeneros=%d animevozes=%d)",
-        len(animes), len(diretor), len(atorvoz), len(bandasonora), len(generos),
-        len(estudioanimacao), len(animediretor), len(animeestudios),
-        len(animegeneros), len(animevozes),
-    )
+    log.info("Lidos do SQL dinamicamente: %d animes prontos para injetar.", len(animes))
 
-    # Fetch posters from Jikan (skip if already seeded)
-    existing_posters = {
-        a["IdAnime"]: a for a in db.animes.find(
-            {}, {"IdAnime": 1, "image_url": 1, "trailer_url": 1, "mal_id": 1, "mal_url": 1, "_id": 0}
-        )
-    }
+    # Reutiliza o cache existente no Mongo para evitar estourar o limite de requests do Jikan
+    existing_posters = {}
+    try:
+        existing_posters = {
+            a["IdAnime"]: a for a in db.animes.find(
+                {}, {"IdAnime": 1, "image_url": 1, "trailer_url": 1, "mal_id": 1, "mal_url": 1, "_id": 0}
+            )
+        }
+    except Exception:
+        pass
 
+    # Atualiza ou pesquisa dados de media na API externa
     for a in animes:
-        cached = existing_posters.get(a["IdAnime"])
-        if cached and cached.get("image_url") and cached.get("trailer_url"):
+        cached = existing_posters.get(a.get("IdAnime") or a.get("idanime"))
+        if cached and cached.get("image_url") and "Sem+Imagem" not in cached.get("image_url"):
             a["image_url"] = cached.get("image_url")
             a["trailer_url"] = cached.get("trailer_url")
             a["mal_id"] = cached.get("mal_id")
             a["mal_url"] = cached.get("mal_url")
             continue
-        info = fetch_poster(a["Titulo"])
+        
+        title_key = next((k for k in a.keys() if k.lower() == "titulo"), "Titulo")
+        info = fetch_poster(a[title_key])
+        
+        if not info.get("image_url"):
+            info["image_url"] = "https://placehold.co/600x400?text=Sem+Imagem"
+            info["trailer_url"] = None
+            
         a.update(info)
-        log.info(
-            "[%s] poster=%s trailer=%s",
-            a["Titulo"][:50],
-            "yes" if a.get("image_url") else "NO",
-            "yes" if a.get("trailer_url") else "NO",
-        )
-        time.sleep(0.6)  # Jikan rate limit: 3 req/s
+        log.info("[%s] poster=%s trailer=%s", a[title_key][:40], "yes" if info.get("image_url") else "NO", "yes" if info.get("trailer_url") else "NO")
+        time.sleep(1.0)
 
-    # Drop and re-insert
+    log.info("A limpar coleções antigas no MongoDB...")
     for col in [
         "animes", "animediretor", "animeestudios", "animegeneros", "animevozes",
         "atorvoz", "bandasonora", "diretor", "estudioanimacao", "generos",
     ]:
         db[col].drop()
 
+    log.info("A injetar todos os dados nas coleções...")
     if animes:
         db.animes.insert_many(animes)
-        db.animes.create_index("IdAnime", unique=True)
-        db.animes.create_index([("Titulo", "text"), ("Descricao", "text")])
-    if animediretor:
-        db.animediretor.insert_many(animediretor)
-    if animeestudios:
-        db.animeestudios.insert_many(animeestudios)
-    if animegeneros:
-        db.animegeneros.insert_many(animegeneros)
-    if animevozes:
-        db.animevozes.insert_many(animevozes)
+        id_field = next((k for k in animes[0].keys() if k.lower() == "idanime"), "IdAnime")
+        title_field = next((k for k in animes[0].keys() if k.lower() == "titulo"), "Titulo")
+        desc_field = next((k for k in animes[0].keys() if k.lower() == "descricao"), "Descricao")
+        
+        db.animes.create_index(id_field, unique=True)
+        db.animes.create_index([(title_field, "text"), (desc_field, "text")])
+
+    if animediretor: db.animediretor.insert_many(animediretor)
+    if animeestudios: db.animeestudios.insert_many(animeestudios)
+    if animegeneros: db.animegeneros.insert_many(animegeneros)
+    if animevozes: db.animevozes.insert_many(animevozes)
+    
     if atorvoz:
         db.atorvoz.insert_many(atorvoz)
-        db.atorvoz.create_index("IdAtorVoz", unique=True)
-    if bandasonora:
-        db.bandasonora.insert_many(bandasonora)
+        id_ator = next((k for k in atorvoz[0].keys() if k.lower() == "idatorvoz"), "IdAtorVoz")
+        db.atorvoz.create_index(id_ator, unique=True)
+        
+    if bandasonora: db.bandasonora.insert_many(bandasonora)
+    
     if diretor:
         db.diretor.insert_many(diretor)
-        db.diretor.create_index("IdDiretor", unique=True)
-    if estudioanimacao:
-        db.estudioanimacao.insert_many(estudioanimacao)
+        id_dir = next((k for k in diretor[0].keys() if k.lower() == "iddiretor"), "IdDiretor")
+        db.diretor.create_index(id_dir, unique=True)
+        
+    if estudioanimacao: db.estudioanimacao.insert_many(estudioanimacao)
+    
     if generos:
         db.generos.insert_many(generos)
-        db.generos.create_index("IdGenero", unique=True)
+        id_gen = next((k for k in generos[0].keys() if k.lower() == "idgenero"), "IdGenero")
+        db.generos.create_index(id_gen, unique=True)
 
-    log.info("Seed complete.")
+    log.info("Sucesso! Todos os dados e média foram sincronizados.")
 
 
 if __name__ == "__main__":

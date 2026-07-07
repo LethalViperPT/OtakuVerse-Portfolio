@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 29, 2026 at 05:26 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost
+-- Tempo de geração: 07-Jul-2026 às 11:04
+-- Versão do servidor: 10.4.28-MariaDB
+-- versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `anime`
+-- Banco de dados: `anime`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `animediretor`
+-- Estrutura da tabela `animediretor`
 --
 
 CREATE TABLE `animediretor` (
@@ -33,7 +33,7 @@ CREATE TABLE `animediretor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `animediretor`
+-- Extraindo dados da tabela `animediretor`
 --
 
 INSERT INTO `animediretor` (`idAnime`, `idDiretor`) VALUES
@@ -78,12 +78,75 @@ INSERT INTO `animediretor` (`idAnime`, `idDiretor`) VALUES
 (89, 35),
 (90, 36),
 (91, 34),
-(92, 72);
+(92, 72),
+(93, 20),
+(94, 78),
+(95, 79),
+(96, 80),
+(97, 81),
+(98, 82),
+(99, 83),
+(100, 84),
+(101, 101),
+(102, 85),
+(103, 86),
+(104, 87),
+(105, 88),
+(106, 73),
+(107, 89),
+(108, 90),
+(109, 91),
+(110, 92),
+(111, 93),
+(112, 94),
+(113, 95),
+(114, 96),
+(115, 99),
+(116, 97),
+(117, 98),
+(118, 99),
+(119, 100),
+(120, 84),
+(121, 101),
+(122, 102),
+(123, 26),
+(124, 30),
+(125, 103),
+(126, 76),
+(127, 96),
+(128, 104),
+(129, 73),
+(130, 77),
+(131, 105),
+(132, 106),
+(133, 107),
+(134, 108),
+(135, 6),
+(136, 109),
+(137, 13),
+(138, 110),
+(139, 111),
+(140, 34),
+(141, 18),
+(142, 112),
+(143, 113),
+(144, 99),
+(145, 74),
+(146, 114),
+(147, 5),
+(148, 115),
+(149, 116),
+(150, 76),
+(151, 75),
+(152, 29),
+(153, 117),
+(154, 92),
+(155, 75);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `animeestudios`
+-- Estrutura da tabela `animeestudios`
 --
 
 CREATE TABLE `animeestudios` (
@@ -92,7 +155,7 @@ CREATE TABLE `animeestudios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `animeestudios`
+-- Extraindo dados da tabela `animeestudios`
 --
 
 INSERT INTO `animeestudios` (`estudio`, `IdAnime`) VALUES
@@ -138,12 +201,103 @@ INSERT INTO `animeestudios` (`estudio`, `IdAnime`) VALUES
 ('Studio VOLN', 89),
 ('J.C.Staff', 90),
 ('MAPPA', 91),
-('Science SARU', 92);
+('Science SARU', 92),
+('Wit Studio', 93),
+('MAPPA', 93),
+('Bones', 94),
+('ufotable', 95),
+('Madhouse', 96),
+('White Fox', 97),
+('Studio Pierrot', 98),
+('Madhouse', 99),
+('J.C.Staff', 99),
+('A-1 Pictures', 100),
+('Production I.G', 101),
+('Madhouse', 102),
+('A-1 Pictures', 103),
+('Bones', 104),
+('White Fox', 105),
+('Sunrise (Bandai Namco Filmworks)', 106),
+('Wit Studio', 107),
+('MAPPA', 107),
+('A-1 Pictures', 108),
+('Studio Deen', 109),
+('Sunrise (Bandai Namco Filmworks)', 110),
+('A-1 Pictures', 111),
+('Satelight', 111),
+('Studio Pierrot', 112),
+('David Production', 113),
+('Brain\'s Base', 114),
+('Gainax', 115),
+('ufotable', 116),
+('Production I.G', 117),
+('Trigger', 118),
+('Madhouse', 119),
+('A-1 Pictures', 120),
+('White Fox', 121),
+('Kyoto Animation', 122),
+('Kinema Citrus', 123),
+('CloverWorks', 124),
+('J.C.Staff', 125),
+('Kyoto Animation', 126),
+('P.A. Works', 127),
+('Madhouse', 128),
+('Manglobe', 129),
+('Madhouse', 130),
+('Gainax', 131),
+('Production I.G', 131),
+('Artland', 132),
+('Toei Animation', 133),
+('Sunrise (Bandai Namco Filmworks)', 134),
+('Studio Pierrot', 135),
+('Bones', 136),
+('Madhouse', 137),
+('TMS Entertainment', 138),
+('Production I.G', 139),
+('Kyoto Animation', 140),
+('Brain\'s Base', 141),
+('Production I.G', 142),
+('Doga Kobo', 143),
+('Trigger', 144),
+('Science SARU', 145),
+('Studio Pierrot', 146),
+('Madhouse', 147),
+('Studio Bind', 148),
+('Kyoto Animation', 149),
+('Kyoto Animation', 150),
+('Shaft', 151),
+('CloverWorks', 152),
+('8bit', 153),
+('Zero-G', 154),
+('Shaft', 155),
+('Toei Animation', 133),
+('Sunrise (Bandai Namco Filmworks)', 134),
+('Studio Pierrot', 135),
+('Bones', 136),
+('Madhouse', 137),
+('TMS Entertainment', 138),
+('Production I.G', 139),
+('Kyoto Animation', 140),
+('Brain\'s Base', 141),
+('Production I.G', 142),
+('Doga Kobo', 143),
+('Trigger', 144),
+('Science SARU', 145),
+('Studio Pierrot', 146),
+('Madhouse', 147),
+('Studio Bind', 148),
+('Kyoto Animation', 149),
+('Kyoto Animation', 150),
+('Shaft', 151),
+('CloverWorks', 152),
+('8bit', 153),
+('Zero-G', 154),
+('Shaft', 155);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `animegeneros`
+-- Estrutura da tabela `animegeneros`
 --
 
 CREATE TABLE `animegeneros` (
@@ -152,7 +306,7 @@ CREATE TABLE `animegeneros` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `animegeneros`
+-- Extraindo dados da tabela `animegeneros`
 --
 
 INSERT INTO `animegeneros` (`IdAnime`, `IdGenero`) VALUES
@@ -262,12 +416,253 @@ INSERT INTO `animegeneros` (`IdAnime`, `IdGenero`) VALUES
 (92, 14),
 (92, 6),
 (92, 16),
-(92, 5);
+(92, 5),
+(93, 1),
+(93, 4),
+(93, 11),
+(94, 1),
+(94, 6),
+(95, 1),
+(95, 14),
+(95, 15),
+(96, 1),
+(96, 2),
+(96, 15),
+(97, 11),
+(97, 16),
+(97, 4),
+(98, 1),
+(98, 13),
+(98, 14),
+(99, 1),
+(99, 6),
+(100, 1),
+(100, 2),
+(100, 5),
+(100, 15),
+(101, 3),
+(101, 6),
+(102, 6),
+(102, 15),
+(103, 4),
+(103, 5),
+(104, 1),
+(104, 6),
+(104, 14),
+(105, 4),
+(105, 11),
+(105, 15),
+(106, 1),
+(106, 16),
+(106, 4),
+(107, 1),
+(107, 2),
+(107, 4),
+(108, 6),
+(108, 5),
+(109, 2),
+(109, 6),
+(109, 15),
+(110, 1),
+(110, 6),
+(110, 16),
+(111, 1),
+(111, 2),
+(111, 15),
+(112, 1),
+(112, 6),
+(112, 15),
+(113, 1),
+(113, 2),
+(113, 14),
+(114, 1),
+(114, 6),
+(115, 1),
+(115, 16),
+(116, 1),
+(116, 14),
+(116, 15),
+(117, 1),
+(117, 11),
+(117, 16),
+(118, 1),
+(118, 6),
+(119, 1),
+(119, 13),
+(119, 16),
+(120, 11),
+(120, 12),
+(120, 14),
+(121, 1),
+(121, 15),
+(122, 4),
+(122, 15),
+(123, 2),
+(123, 4),
+(123, 15),
+(124, 11),
+(124, 12),
+(124, 16),
+(125, 4),
+(125, 5),
+(125, 6),
+(126, 4),
+(126, 5),
+(126, 7),
+(127, 4),
+(127, 6),
+(127, 14),
+(128, 1),
+(128, 13),
+(128, 14),
+(129, 1),
+(129, 2),
+(129, 6),
+(130, 1),
+(130, 4),
+(131, 1),
+(131, 6),
+(131, 16),
+(132, 2),
+(132, 12),
+(132, 14),
+(133, 1),
+(133, 2),
+(133, 15),
+(134, 1),
+(134, 2),
+(134, 5),
+(134, 14),
+(135, 1),
+(135, 6),
+(135, 14),
+(136, 6),
+(136, 5),
+(136, 7),
+(137, 4),
+(137, 5),
+(137, 7),
+(138, 4),
+(138, 5),
+(138, 14),
+(139, 3),
+(139, 6),
+(140, 3),
+(140, 7),
+(141, 1),
+(141, 12),
+(141, 14),
+(142, 2),
+(142, 12),
+(142, 16),
+(143, 4),
+(143, 12),
+(143, 14),
+(144, 1),
+(144, 4),
+(144, 16),
+(145, 1),
+(145, 13),
+(145, 14),
+(146, 6),
+(146, 4),
+(146, 7),
+(147, 3),
+(147, 6),
+(147, 4),
+(148, 2),
+(148, 4),
+(148, 15),
+(149, 6),
+(149, 7),
+(150, 6),
+(150, 12),
+(150, 16),
+(151, 12),
+(151, 5),
+(151, 14),
+(152, 6),
+(152, 7),
+(153, 3),
+(153, 1),
+(153, 4),
+(154, 6),
+(154, 7),
+(155, 4),
+(155, 11),
+(155, 12),
+(155, 15),
+(133, 1),
+(133, 2),
+(133, 15),
+(134, 1),
+(134, 2),
+(134, 5),
+(134, 14),
+(135, 1),
+(135, 6),
+(135, 14),
+(136, 6),
+(136, 5),
+(136, 7),
+(137, 4),
+(137, 5),
+(137, 7),
+(138, 4),
+(138, 5),
+(138, 14),
+(139, 3),
+(139, 6),
+(140, 3),
+(140, 7),
+(141, 1),
+(141, 12),
+(141, 14),
+(142, 2),
+(142, 12),
+(142, 16),
+(143, 4),
+(143, 12),
+(143, 14),
+(144, 1),
+(144, 4),
+(144, 16),
+(145, 1),
+(145, 13),
+(145, 14),
+(146, 6),
+(146, 4),
+(146, 7),
+(147, 3),
+(147, 6),
+(147, 4),
+(148, 2),
+(148, 4),
+(148, 15),
+(149, 6),
+(149, 7),
+(150, 6),
+(150, 12),
+(150, 16),
+(151, 12),
+(151, 5),
+(151, 14),
+(152, 6),
+(152, 7),
+(153, 3),
+(153, 1),
+(153, 4),
+(154, 6),
+(154, 7),
+(155, 4),
+(155, 11),
+(155, 12),
+(155, 15);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `animes`
+-- Estrutura da tabela `animes`
 --
 
 CREATE TABLE `animes` (
@@ -280,13 +675,13 @@ CREATE TABLE `animes` (
   `Season` enum('Fall','Winter','Summer','Spring') NOT NULL,
   `Classificacao` decimal(3,0) NOT NULL,
   `ClassificacaoEtaria` enum('Maior de 3','Maior de 6','Maior de 12','Maior de 18','Todos','Maior de 16','Maior de 13') NOT NULL,
-  `BaseadoEm` enum('Manga','Light Novel','Original') NOT NULL,
+  `BaseadoEm` enum('Visual Novel','Manga','Light Novel','Original') NOT NULL,
   `NumeroEpisodio` int(11) NOT NULL,
   `Estado` enum('Em exibição','Terminado','Cancelado') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `animes`
+-- Extraindo dados da tabela `animes`
 --
 
 INSERT INTO `animes` (`IdAnime`, `Titulo`, `Descricao`, `AnoEmissao`, `anoFim`, `Temporada`, `Season`, `Classificacao`, `ClassificacaoEtaria`, `BaseadoEm`, `NumeroEpisodio`, `Estado`) VALUES
@@ -326,12 +721,75 @@ INSERT INTO `animes` (`IdAnime`, `Titulo`, `Descricao`, `AnoEmissao`, `anoFim`, 
 (89, 'Ao no Exorcist', 'Rin Okumura descobre que ele e o seu irmão gémeo Yukio são, na verdade, filhos de Satã, o deus dos demónios. Após ver o seu pai adotivo morrer para o proteger, Rin recusa-se a juntar-se ao seu progenitor biológico. Em vez disso, saca da espada mágica Kurikara (que liberta as suas chamas azuis demoníacas) e entra na Academia True Cross para se tornar um Exorcista e derrotar Satã.', 2011, 2025, 5, 'Spring', 7, 'Maior de 13', 'Manga', 73, 'Terminado'),
 (90, 'Back Street Girls: Gokudolls', 'Três criminosos da Yakuza falham miseravelmente numa missão importante. O chefe da organização dá-lhes duas escolhas: cometer suicídio honroso (seppuku) ou viajar para a Tailândia, fazer uma cirurgia de mudança de sexo e passar por um treino intensivo para se tornarem um grupo de Idols pop femininas para render dinheiro à máfia. Eles escolhem a segunda e tornam-se um sucesso estrondoso, sofrendo mentalmente em segredo.', 2018, 2018, 1, 'Summer', 6, 'Maior de 16', 'Manga', 10, 'Terminado'),
 (91, 'Banana Fish', 'Ash Lynx é um jovem líder de um gangue de rua em Nova Iorque, adotado no passado pelo implacável chefe da máfia Dino Golzine. Ash tenta desvendar o segredo por trás do termo \"Banana Fish\" — as últimas palavras ditas pelo seu irmão mais velho que enlouqueceu na Guerra do Iraque. No processo, conhece Eiji Okumura, um fotógrafo japonês inocente, criando um laço profundo enquanto tentam sobreviver a uma conspiração militar e mafiosa.', 2018, 2018, 1, 'Summer', 8, 'Maior de 18', 'Manga', 24, 'Terminado'),
-(92, 'Dandadan', 'Momo Ayase é uma rapariga de liceu que acredita em fantasmas mas recusa a existência de extraterrestres. O seu colega de turma, Ken \"Okarun\" Takakura, acredita piamente em OVNIs mas descarta o sobrenatural. Para provarem quem está certo, visitam locais assombrados e bases alienígenas respetivamente. O resultado? Ambos estão certos. Okarun é amaldiçoado por uma bruxa turbinada e Momo desperta poderes psíquicos, dando início a batalhas caóticas e bizarras.', 2024, NULL, 2, 'Fall', 8, 'Maior de 16', 'Manga', 24, 'Terminado');
+(92, 'Dandadan', 'Momo Ayase é uma rapariga de liceu que acredita em fantasmas mas recusa a existência de extraterrestres. O seu colega de turma, Ken \"Okarun\" Takakura, acredita piamente em OVNIs mas descarta o sobrenatural. Para provarem quem está certo, visitam locais assombrados e bases alienígenas respetivamente. O resultado? Ambos estão certos. Okarun é amaldiçoado por uma bruxa turbinada e Momo desperta poderes psíquicos, dando início a batalhas caóticas e bizarras.', 2024, NULL, 2, 'Fall', 8, 'Maior de 16', 'Manga', 24, 'Terminado'),
+(93, 'Shingeki no Kyojin', 'A humanidade vive atrás de muralhas para se proteger de gigantes devoradores de humanos chamados Titãs.', 2013, 2023, 1, 'Spring', 9, 'Maior de 16', 'Manga', 89, 'Terminado'),
+(94, 'Boku no Hero Academia', 'Num mundo onde a maioria das pessoas tem superpoderes, um rapaz sem poderes treina para se tornar o maior herói.', 2016, 2024, 1, 'Spring', 8, 'Maior de 12', 'Manga', 138, 'Terminado'),
+(95, 'Kimetsu no Yaiba', 'Tanjiro torna-se um caçador de demónios para curar a sua irmã, que foi transformada num demónio, e vingar a sua família.', 2019, NULL, 1, 'Spring', 9, 'Maior de 16', 'Manga', 55, 'Em exibição'),
+(96, 'Hunter x Hunter (2011)', 'Gon Freecss parte numa jornada perigosa para se tornar um Caçador e encontrar o seu pai desaparecido.', 2011, 2014, 1, 'Fall', 9, 'Maior de 13', 'Manga', 148, 'Terminado'),
+(97, 'Steins;Gate', 'Um grupo de amigos descobre como enviar mensagens para o passado, alterando o curso da história e desencadeando consequências terríveis.', 2011, 2011, 1, 'Spring', 9, 'Maior de 16', 'Original', 24, 'Terminado'),
+(98, 'Tokyo Ghoul', 'Um estudante universitário sobrevive a um ataque de um Ghoul e acaba por se tornar metade humano, metade Ghoul.', 2014, 2014, 1, 'Summer', 8, 'Maior de 18', 'Manga', 12, 'Terminado'),
+(99, 'One Punch Man', 'Saitama é um super-herói que treinou tanto que ficou careca e agora derrota qualquer inimigo com apenas um soco.', 2015, 2015, 1, 'Fall', 9, 'Maior de 16', 'Manga', 12, 'Terminado'),
+(100, 'Sword Art Online', 'Jogadores ficam presos num jogo de realidade virtual; se morrerem no jogo, morrem na vida real.', 2012, 2012, 1, 'Summer', 7, 'Maior de 13', 'Light Novel', 25, 'Terminado'),
+(101, 'Haikyuu!!', 'Hinata Shoyo, de baixa estatura, junta-se à equipa de voleibol da sua escola para se tornar o melhor jogador do país.', 2014, 2020, 1, 'Spring', 9, 'Todos', 'Manga', 85, 'Terminado'),
+(102, 'No Game No Life', 'Dois irmãos génios nos videojogos são transportados para um mundo onde tudo se resolve através de jogos.', 2014, 2014, 1, 'Spring', 8, 'Maior de 13', 'Light Novel', 12, 'Terminado'),
+(103, 'Shigatsu wa Kimi no Uso', 'Um prodígio do piano perde a capacidade de ouvir a sua própria música após a morte da mãe, até conhecer uma violinista.', 2014, 2015, 1, 'Fall', 9, 'Maior de 12', 'Manga', 22, 'Terminado'),
+(104, 'Mob Psycho 100', 'Mob é um rapaz com poderes psíquicos explosivos que tenta viver uma vida normal enquanto suprime as suas emoções.', 2016, 2022, 1, 'Summer', 9, 'Maior de 13', 'Manga', 37, 'Terminado'),
+(105, 'Re:Zero kara Hajimeru Isekai Seikatsu', 'Subaru é transportado para outro mundo e descobre que ganha o poder de retroceder no tempo sempre que morre.', 2016, NULL, 1, 'Spring', 8, 'Maior de 16', 'Light Novel', 50, 'Em exibição'),
+(106, 'Cowboy Bebop', 'Caçadores de recompensas viajam pelo espaço na nave Bebop, lidando com criminosos e os seus próprios passados.', 1998, 1999, 1, 'Spring', 9, 'Maior de 16', 'Original', 26, 'Terminado'),
+(107, 'Vinland Saga', 'Thorfinn, filho de um dos maiores guerreiros vikings, junta-se ao bando do assassino do seu pai em busca de vingança.', 2019, NULL, 1, 'Summer', 9, 'Maior de 16', 'Manga', 48, 'Em exibição'),
+(108, 'Kaguya-sama wa Kokurasetai', 'Dois génios do conselho estudantil estão apaixonados, mas recusam-se a confessar, criando guerras psicológicas para forçar o outro a fazê-lo.', 2019, 2022, 1, 'Winter', 8, 'Maior de 13', 'Manga', 37, 'Terminado'),
+(109, 'Kono Subarashii Sekai ni Shukufuku wo!', 'Um adolescente reencarna num mundo de fantasia com uma deusa inútil, uma maga focada em explosões e uma cavaleira masoquista.', 2016, NULL, 1, 'Winter', 8, 'Maior de 13', 'Light Novel', 31, 'Em exibição'),
+(110, 'Gintama', 'No Japão da era Edo conquistado por extraterrestres, o excêntrico samurai Gintoki faz trabalhos estranhos para pagar a renda.', 2006, 2018, 1, 'Spring', 9, 'Maior de 13', 'Manga', 367, 'Terminado'),
+(111, 'Fairy Tail', 'Lucy junta-se à infame guilda de magos Fairy Tail e vive aventuras épicas com Natsu, Happy e outros membros.', 2009, 2019, 1, 'Fall', 8, 'Maior de 13', 'Manga', 328, 'Terminado'),
+(112, 'Black Clover', 'Asta, nascido num mundo de magia sem qualquer poder mágico, sonha em tornar-se o Rei Mago.', 2017, 2021, 1, 'Fall', 8, 'Maior de 13', 'Manga', 170, 'Terminado'),
+(113, 'JoJo no Kimyou na Bouken', 'Acompanha a linhagem da família Joestar ao longo das gerações, com cada descendente a combater forças sobrenaturais.', 2012, NULL, 1, 'Fall', 8, 'Maior de 16', 'Manga', 190, 'Em exibição'),
+(114, 'Ansatsu Kyoushitsu', 'Uma criatura com tentáculos destrói a Lua e ameaça a Terra, mas oferece-se para ensinar uma turma de alunos que têm a missão de o assassinar.', 2015, 2016, 1, 'Winter', 8, 'Maior de 13', 'Manga', 47, 'Terminado'),
+(115, 'Tengen Toppa Gurren Lagann', 'Simon e Kamina vivem no subsolo, mas após encontrarem um robô, sobem à superfície para combater os tiranos que dominam a Terra.', 2007, 2007, 1, 'Spring', 9, 'Maior de 13', 'Original', 27, 'Terminado'),
+(116, 'Fate/Zero', 'Sete magos invocam heróis lendários do passado para combaterem numa guerra brutal cujo prémio é o Santo Graal.', 2011, 2012, 1, 'Fall', 8, 'Maior de 16', 'Light Novel', 25, 'Terminado'),
+(117, 'Psycho-Pass', 'Num futuro onde a probabilidade de uma pessoa cometer um crime é medida, a polícia caça criminosos latentes.', 2012, 2013, 1, 'Fall', 8, 'Maior de 16', 'Original', 22, 'Terminado'),
+(118, 'Kill la Kill', 'Ryuko Matoi procura o assassino do seu pai usando metade de uma tesoura gigante e um uniforme escolar falante e mágico.', 2013, 2014, 1, 'Fall', 8, 'Maior de 16', 'Original', 24, 'Terminado'),
+(119, 'Kiseijuu: Sei no Kakuritsu', 'Shinichi acorda com um parasita alienígena no lugar da sua mão direita. Juntos, lutam pela sobrevivência contra outros parasitas.', 2014, 2015, 1, 'Fall', 8, 'Maior de 16', 'Manga', 24, 'Terminado'),
+(120, 'Boku dake ga Inai Machi', 'Um jovem volta no tempo até aos seus dias de escola primária para evitar uma série de sequestros e assassinatos.', 2016, 2016, 1, 'Winter', 8, 'Maior de 16', 'Manga', 12, 'Terminado'),
+(121, 'Akame ga Kill!', 'Tatsumi junta-se a um grupo de assassinos chamado Night Raid para combater o corrupto Império e salvar a sua aldeia.', 2014, 2014, 1, 'Summer', 8, 'Maior de 16', 'Manga', 24, 'Terminado'),
+(122, 'Violet Evergarden', 'Uma ex-soldado tenta compreender o significado das palavras \"Eu amo-te\", trabalhando como escritora de cartas para os outros.', 2018, 2018, 1, 'Winter', 9, 'Maior de 12', 'Light Novel', 13, 'Terminado'),
+(123, 'Made in Abyss', 'A jovem Riko e o robô Reg descem às profundezas perigosas e misteriosas do grande abismo para procurar a mãe dela.', 2017, NULL, 1, 'Summer', 9, 'Maior de 16', 'Manga', 25, 'Em exibição'),
+(124, 'Yakusoku no Neverland', 'Crianças órfãs descobrem a verdade macabra sobre o orfanato perfeito onde vivem e planeiam uma fuga desesperada.', 2019, 2021, 1, 'Winter', 8, 'Maior de 16', 'Manga', 23, 'Terminado'),
+(125, 'Toradora!', 'Ryuuji e Taiga, dois colegas com personalidades opostas, formam uma aliança para se ajudarem a conquistar os respetivos interesses amorosos.', 2008, 2009, 1, 'Fall', 8, 'Maior de 13', 'Light Novel', 25, 'Terminado'),
+(126, 'Clannad', 'Tomoya, um delinquente desinteressado na vida, conhece Nagisa, que sonha reviver o clube de teatro da escola, mudando as suas vidas.', 2007, 2008, 1, 'Fall', 8, 'Maior de 13', 'Visual Novel', 22, 'Terminado'),
+(127, 'Angel Beats!', 'Numa escola secundária no purgatório, adolescentes revoltam-se contra Deus para não aceitarem a sua reencarnação e desaparecimento.', 2010, 2010, 1, 'Spring', 8, 'Maior de 13', 'Original', 13, 'Terminado'),
+(128, 'Hellsing Ultimate', 'A organização Hellsing e o seu trunfo principal, o poderoso vampiro Alucard, protegem a Inglaterra de monstros e nazis.', 2006, 2012, 1, 'Winter', 8, 'Maior de 18', 'Manga', 10, 'Terminado'),
+(129, 'Samurai Champloo', 'Uma jovem junta dois espadachins (um samurai tradicional e um vagabundo que luta breakdance) para procurar \"o samurai que cheira a girassóis\".', 2004, 2005, 1, 'Spring', 8, 'Maior de 16', 'Original', 26, 'Terminado'),
+(130, 'Black Lagoon', 'Um empresário japonês pacato é raptado por piratas modernos no sudeste asiático e acaba por se juntar à tripulação.', 2006, 2006, 1, 'Spring', 8, 'Maior de 18', 'Manga', 12, 'Terminado'),
+(131, 'FLCL', 'A vida monótona de Naota é interrompida quando uma mulher louca o atropela com a sua Vespa e acerta-lhe na cabeça com um baixo elétrico.', 2000, 2001, 1, 'Spring', 8, 'Maior de 13', 'Original', 6, 'Terminado'),
+(132, 'Mushishi', 'Ginko é um viajante que estuda os Mushi, formas primitivas de vida que muitas vezes interagem e prejudicam os seres humanos.', 2005, 2006, 1, 'Fall', 9, 'Maior de 13', 'Manga', 26, 'Terminado'),
+(133, 'Dragon Ball Z', 'Goku, agora adulto e com um filho, descobre que pertence a uma raça guerreira extraterrestre e tem de proteger a Terra de ameaças galácticas.', 1989, 1996, 9, 'Spring', 8, 'Maior de 12', 'Manga', 291, 'Terminado'),
+(134, 'Inuyasha', 'Kagome é puxada para um poço e viaja no tempo para o Japão feudal, onde se alia ao meio-demónio Inuyasha para recolher os fragmentos de uma joia mágica.', 2000, 2004, 6, 'Fall', 8, 'Maior de 13', 'Manga', 167, 'Terminado'),
+(135, 'Yu Yu Hakusho', 'Um delinquente adolescente sacrifica a vida para salvar uma criança e recebe uma segunda oportunidade como Detetive Espiritual, investigando demónios na Terra.', 1992, 1995, 4, 'Fall', 8, 'Maior de 13', 'Manga', 112, 'Terminado'),
+(136, 'Ouran Koukou Host Club', 'Haruhi, uma aluna pobre numa escola de elite, parte um vaso caríssimo e é forçada a fingir que é um rapaz para trabalhar no Host Club e pagar a dívida.', 2006, 2006, 1, 'Spring', 8, 'Maior de 13', 'Manga', 26, 'Terminado'),
+(137, 'Nana', 'Duas raparigas de 20 anos, ambas com o nome Nana mas com personalidades opostas, conhecem-se num comboio para Tóquio e acabam por partilhar um apartamento.', 2006, 2007, 1, 'Spring', 9, 'Maior de 16', 'Manga', 47, 'Terminado'),
+(138, 'Fruits Basket (2019)', 'Tohru Honda é acolhida pela família Soma, que esconde um segredo: os seus membros transformam-se em animais do Zodíaco Chinês quando abraçados pelo sexo oposto.', 2019, 2021, 3, 'Spring', 9, 'Maior de 13', 'Manga', 63, 'Terminado'),
+(139, 'Kuroko no Basket', 'O \"Sexto Homem Fantasma\" da lendária Geração dos Milagres junta-se à equipa de basquetebol do liceu Seirin para os ajudar a chegar ao topo do Japão.', 2012, 2015, 3, 'Spring', 8, 'Maior de 13', 'Manga', 75, 'Terminado'),
+(140, 'Free!', 'Haruka Nanase e os seus amigos de infância revitalizam o clube de natação do seu liceu para voltarem a competir juntos.', 2013, 2018, 3, 'Summer', 7, 'Maior de 13', 'Light Novel', 37, 'Terminado'),
+(141, 'Baccano!', 'Uma narrativa não-linear na América dos anos 1930, onde mafiosos, assassinos, alquimistas e ladrões se cruzam numa série de eventos violentos e imortais.', 2007, 2007, 1, 'Summer', 8, 'Maior de 16', 'Light Novel', 13, 'Terminado'),
+(142, 'Tengoku Daimakyou', 'No mundo exterior devastado por monstros, Maru e Kiruko procuram o \"Paraíso\", enquanto num local fechado, crianças peculiares crescem sob vigilância tecnológica.', 2023, 2023, 1, 'Spring', 8, 'Maior de 16', 'Manga', 13, 'Terminado'),
+(143, 'Oshi no Ko', 'Um médico e uma fã reencarnam como filhos gémeos da sua Idol favorita, Ai Hoshino, entrando no mundo sombrio da indústria do entretenimento em busca de vingança.', 2023, NULL, 2, 'Spring', 9, 'Maior de 16', 'Manga', 24, 'Em exibição'),
+(144, 'Cyberpunk: Edgerunners', 'Numa cidade distópica obcecada por tecnologia e modificações corporais, um rapaz de rua junta-se a um grupo de mercenários implacáveis.', 2022, 2022, 1, 'Fall', 9, 'Maior de 18', 'Original', 10, 'Terminado'),
+(145, 'Devilman Crybaby', 'Akira funde-se com um demónio para obter o seu poder e proteger a humanidade, tornando-se o Devilman num mundo à beira da rutura apocalíptica.', 2018, 2018, 1, 'Winter', 8, 'Maior de 18', 'Manga', 10, 'Terminado'),
+(146, 'Great Teacher Onizuka', 'Um ex-líder de um gangue de motards torna-se professor no liceu com o objetivo de conhecer raparigas, mas acaba a usar métodos não ortodoxos para consertar a vida dos seus alunos.', 1999, 2000, 1, 'Summer', 9, 'Maior de 16', 'Manga', 43, 'Terminado'),
+(147, 'Hajime no Ippo', 'Ippo, um rapaz tímido e frequentemente alvo de bullying, é salvo por um pugilista profissional e descobre o seu talento inato para o boxe.', 2000, 2002, 1, 'Fall', 9, 'Maior de 13', 'Manga', 75, 'Terminado'),
+(148, 'Mushoku Tensei: Isekai Ittara Honki Dasu', 'Um recluso de 34 anos morre e reencarna num mundo de espada e magia como um bebé, determinado a viver esta nova vida ao máximo, sem arrependimentos.', 2021, NULL, 2, 'Winter', 8, 'Maior de 16', 'Light Novel', 48, 'Em exibição'),
+(149, 'K-On!', 'Quatro raparigas de liceu formam uma banda para salvar o Clube de Música Ligeira, passando mais tempo a beber chá e comer doces do que a ensaiar.', 2009, 2010, 2, 'Spring', 8, 'Maior de 13', 'Manga', 39, 'Terminado'),
+(150, 'Suzumiya Haruhi no Yuuutsu', 'A vida de Kyon muda quando é arrastado para o clube escolar de Haruhi Suzumiya, uma rapariga excêntrica que, sem saber, possui o poder de alterar a realidade.', 2006, 2009, 2, 'Spring', 8, 'Maior de 13', 'Light Novel', 28, 'Terminado'),
+(151, 'Bakemonogatari', 'Koyomi Araragi, um estudante que sobreviveu a um ataque de um vampiro, ajuda raparigas envolvidas em bizarros incidentes sobrenaturais conhecidos como \"anomalias\".', 2009, 2010, 1, 'Summer', 8, 'Maior de 16', 'Light Novel', 15, 'Terminado'),
+(152, 'Bocchi the Rock!', 'Hitori Gotoh é uma rapariga solitária e com severa ansiedade social que toca guitarra de forma brilhante e junta-se acidentalmente à Kessoku Band.', 2022, 2022, 1, 'Fall', 9, 'Maior de 13', 'Manga', 12, 'Terminado'),
+(153, 'Blue Lock', 'Após uma derrota esmagadora no Mundial, o Japão cria o bizarro projeto prisional \"Blue Lock\" para forjar o avançado egoísta e definitivo capaz de lhes dar a vitória.', 2022, NULL, 2, 'Fall', 8, 'Maior de 13', 'Manga', 48, 'Em exibição'),
+(154, 'Grand Blue', 'Iori muda-se para uma cidade costeira para a universidade e é rapidamente absorvido pelo insano e altamente alcoólico clube de mergulho local (onde o mergulho é opcional).', 2018, 2018, 1, 'Summer', 8, 'Maior de 16', 'Manga', 12, 'Terminado'),
+(155, 'Mahou Shoujo Madoka★Magica', 'Raparigas comuns recebem a oferta de um desejo em troca de se tornarem garotas mágicas, apenas para descobrirem a verdade cruel e sombria por trás desse contrato.', 2011, 2011, 1, 'Winter', 8, 'Maior de 16', 'Original', 12, 'Terminado');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `animevozes`
+-- Estrutura da tabela `animevozes`
 --
 
 CREATE TABLE `animevozes` (
@@ -340,7 +798,7 @@ CREATE TABLE `animevozes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `animevozes`
+-- Extraindo dados da tabela `animevozes`
 --
 
 INSERT INTO `animevozes` (`IdAnime`, `IdAtorVoz`) VALUES
@@ -399,12 +857,77 @@ INSERT INTO `animevozes` (`IdAnime`, `IdAtorVoz`) VALUES
 (91, 172),
 (91, 173),
 (92, 168),
-(92, 178);
+(92, 178),
+(93, 137),
+(94, 180),
+(95, 168),
+(96, 181),
+(97, 133),
+(98, 168),
+(98, 185),
+(99, 182),
+(100, 183),
+(100, 184),
+(101, 127),
+(102, 183),
+(103, 168),
+(104, 191),
+(105, 128),
+(106, 190),
+(107, 192),
+(108, 182),
+(109, 185),
+(110, 171),
+(111, 193),
+(112, 194),
+(113, 167),
+(114, 153),
+(115, 193),
+(116, 153),
+(117, 161),
+(118, 195),
+(119, 124),
+(120, 196),
+(121, 185),
+(122, 186),
+(123, 197),
+(124, 198),
+(125, 165),
+(126, 163),
+(127, 142),
+(128, 199),
+(129, 200),
+(130, 201),
+(131, 202),
+(132, 203),
+(133, 189),
+(134, 134),
+(135, 204),
+(136, 135),
+(137, 115),
+(138, 124),
+(139, 137),
+(140, 124),
+(141, 205),
+(142, 181),
+(143, 143),
+(144, 141),
+(145, 127),
+(146, 206),
+(147, 207),
+(148, 208),
+(149, 188),
+(150, 187),
+(151, 160),
+(152, 209),
+(153, 154),
+(154, 128),
+(155, 142);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `atorvoz`
+-- Estrutura da tabela `atorvoz`
 --
 
 CREATE TABLE `atorvoz` (
@@ -415,7 +938,7 @@ CREATE TABLE `atorvoz` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `atorvoz`
+-- Extraindo dados da tabela `atorvoz`
 --
 
 INSERT INTO `atorvoz` (`IdAtorVoz`, `Nome`, `DataNascimento`, `Genero`) VALUES
@@ -483,12 +1006,42 @@ INSERT INTO `atorvoz` (`IdAtorVoz`, `Nome`, `DataNascimento`, `Genero`) VALUES
 (176, 'Kaori Maeda', '1996-04-25', 'F'),
 (177, 'Hikaru Akao', '1995-06-16', 'F'),
 (178, 'Shion Wakayama', '1998-02-10', 'F'),
-(179, 'Nina Tamaki', '1996-02-29', 'F');
+(179, 'Nina Tamaki', '1996-02-29', 'F'),
+(180, 'Daiki Yamashita', '1989-09-07', 'M'),
+(181, 'Megumi Han', '1989-06-03', 'F'),
+(182, 'Makoto Furukawa', '1989-09-29', 'M'),
+(183, 'Yoshitsugu Matsuoka', '1986-01-11', 'M'),
+(184, 'Haruka Tomatsu', '1990-01-27', 'F'),
+(185, 'Sora Amamiya', '1993-08-28', 'F'),
+(186, 'Yui Ishikawa', '1989-05-30', 'F'),
+(187, 'Aya Hirano', '1987-01-27', 'F'),
+(188, 'Aki Toyosaki', '1990-01-29', 'F'),
+(189, 'Masako Nozawa', '1936-03-25', 'F'),
+(190, 'Koichi Yamadera', '1961-06-17', 'M'),
+(191, 'Setsuo Itou', '1997-01-01', 'M'),
+(192, 'Yuto Uemura', '1994-01-27', 'M'),
+(193, 'Tetsuya Kakihara', '1986-01-27', 'M'),
+(194, 'Gakuto Kajiwara', '1996-01-01', 'M'),
+(195, 'Ryoka Yuzuki', '1974-04-24', 'F'),
+(196, 'Tatsuya Tokutake', '1990-01-01', 'M'),
+(197, 'Miyu Tomita', '2000-01-01', 'F'),
+(198, 'Sumire Morohoshi', '2000-01-01', 'F'),
+(199, 'Jouji Nakata', '1957-01-01', 'M'),
+(200, 'Kazuya Nakai', '1967-01-01', 'M'),
+(201, 'Megumi Toyoguchi', '1974-01-01', 'F'),
+(202, 'Miki Ito', '1972-01-01', 'F'),
+(203, 'Tsutomu Isobe', '1962-01-01', 'M'),
+(204, 'Nozomu Sasaki', '1967-06-04', 'M'),
+(205, 'Toshiyuki Morikawa', '1967-01-26', 'M'),
+(206, 'Yuji Ueda', '1968-01-01', 'M'),
+(207, 'Nobuo Tobita', '1957-01-01', 'M'),
+(208, 'Yumi Uchiyama', '1990-01-01', 'F'),
+(209, 'Sayumi Suzushiro', '1997-01-01', 'F');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bandasonora`
+-- Estrutura da tabela `bandasonora`
 --
 
 CREATE TABLE `bandasonora` (
@@ -500,7 +1053,7 @@ CREATE TABLE `bandasonora` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `bandasonora`
+-- Extraindo dados da tabela `bandasonora`
 --
 
 INSERT INTO `bandasonora` (`IdBandaSonora`, `Nome`, `IdAnime`, `Opening`, `Ending`) VALUES
@@ -540,12 +1093,75 @@ INSERT INTO `bandasonora` (`IdBandaSonora`, `Nome`, `IdAnime`, `Opening`, `Endin
 (34, 'Hiroyuki Sawano', 89, '\"Core Pride\" por UVERworld', '\"Take Off\" por 2PM'),
 (35, 'Gesshoku Kaigi', 90, '\"Gokudoll Music\" por Gokudolls Nijigumi', '\"Hoshi no Katachi\" por Gokudolls Nijigumi'),
 (36, 'Shinichi Osawa', 91, '\"found & lost\" por Survive Said The Prophet', '\"Prayer X\" por King Gnu'),
-(37, 'Kensuke Ushio', 92, '\"Otonoke\" por Creepy Nuts', '\"TAIDADA\" por ZUTOMAYO');
+(37, 'Kensuke Ushio', 92, '\"Otonoke\" por Creepy Nuts', '\"TAIDADA\" por ZUTOMAYO'),
+(38, 'Hiroyuki Sawano', 93, 'Guren no Yumiya por Linked Horizon', 'Utsukushiki Zankoku na Sekai por Yoko Hikasa'),
+(39, 'Yuki Hayashi', 94, 'The Day por Porno Graffitti', 'Heroes por Brian the Sun'),
+(40, 'Yuki Kajiura e Go Shiina', 95, 'Gurenge por LiSA', 'from the edge por LiSA e FictionJunction'),
+(41, 'Yoshihisa Hirano', 96, 'Departure! por Galneryus', 'Just Awake por Konomi Suzuki'),
+(42, 'Takeshi Abo', 97, 'Hacking to the Gate por Kanako Itou', 'Toki Tsukasadoru Juuni no Meiyaku por Kanako Itou'),
+(43, 'Yutaka Yamada', 98, 'unravel por TK from Ling Tosite Sigure', 'Seiyoku no Fukushuu por oOooOooOooOo'),
+(44, 'Makoto Miyazaki', 99, 'The Hero!! ~Ichiban Kakkoii Yatsu~ por JAM Project', 'Made in Japan por JAM Project'),
+(45, 'Yuki Kajiura', 100, 'Crossing Field por LiSA', 'Yume Sekai por Haruka Tomatsu'),
+(46, 'Yuki Hayashi', 101, 'Imagination por SPYAIR', 'FLY HIGH!! por BURNOUT SYNDROMES'),
+(47, 'Ryo Takahashi', 102, 'This Game por Konomi Suzuki', 'Ring Ring Rainbow!! por elenco'),
+(48, 'Masaru Yokoyama', 103, 'Hikaru Nara por Goose house', 'Orange por 7!!'),
+(49, 'Kenji Kawai', 104, '99.9 por (K)NoW_NAME', '1 por (K)NoW_NAME'),
+(50, 'Kenichiro Suehiro', 105, 'Redo por Konomi Suzuki', 'STYX HELIX por Rie Takahashi e Ayaka Suwa'),
+(51, 'Yoko Kanno', 106, 'Tank! por Seatbelts', 'The Real Folk Blues por Mai Yamane'),
+(52, 'Yutaka Yamada', 107, 'MUKANJYO por Survive Said The Prophet', 'Torch por Aimer'),
+(53, 'Kanade Sato', 108, 'Love Dramatic por Masayuki Suzuki', 'Kaguya-sama wa Kokurasetai por Vaundy'),
+(54, 'Masato Nakayama', 109, 'Fantastic Dreamer por Machico', 'Chiisana Boukensha por Machico e Konomi Suzuki'),
+(55, 'Kenji Kawai', 110, 'Pray por DOES', 'Kirei Gokko por Tornado Mart'),
+(56, 'Yasuharu Takanashi', 111, 'Snow Fairy por FUNKIST', 'Kimi ga Iru Kara por Ceui'),
+(57, 'Minako Seki', 112, 'Haruka Mirai por BURNOUT SYNDROMES', 'Black Rover por Vickeblanka'),
+(58, 'Yugo Kanno', 113, 'Sono Chi no Sadame por JIN', 'Roundabout por Yes (cover)'),
+(59, 'Kohta Yamamoto', 114, 'Q&A por Kensho Ono', 'Yoake no Kaze por 2 AM'),
+(60, 'Taku Iwasaki', 115, 'Sorairo Days por Yoko Takahashi', 'Row Row Fight the Powaa!! por Yoko Takahashi'),
+(61, 'Yuki Kajiura', 116, 'to the beginning por Kalafina', 'Sprinter por Kalafina'),
+(62, 'Yugo Kanno', 117, 'Abnormalize por Ling Tosite Sigure', 'Namae no Nai Kaibutsu por Egoist'),
+(63, 'Hiroyuki Sawano', 118, 'Sirius por Salyu x Salyu', 'Ambiguous por FLOW'),
+(64, 'Ken Arai', 119, 'Let Me Hear por Fear, and Loathing in Las Vegas', 'Next to You por MAN WITH A MISSION'),
+(65, 'Hiroaki Tsutsumi', 120, 'Re:Re: por Asian Kung-Fu Generation', 'Just a Moment por Snow Patrol'),
+(66, 'Taku Iwasaki', 121, 'Trigger por Miyuki Hashimoto', 'Liar Mask por Konomi Suzuki'),
+(67, 'Evan Call', 122, 'Sincerely por TRUE', 'Michishirube por TRUE'),
+(68, 'Kevin Penkin', 123, 'Deep in Abyss (instrumental)', 'Kareha por Riko (Miyu Tomita)'),
+(69, 'Takahiro Obata', 124, 'Touch off por UVERworld', 'Zettai Zetsumei por Cinema Staff'),
+(70, 'Yoshiaki Fujisawa', 125, 'Preparation! por Rie Kugimiya, Yui Horie e Eri Kitamura', 'Vanilla Salt por Yui Horie'),
+(71, 'Shinji Orito e Jun Maeda', 126, 'Mag Mell por Lia', 'Dango Daikazoku por Chata'),
+(72, 'Jun Maeda', 127, 'My Soul, Your Beats! por Lia', 'Brave Song por Lia'),
+(73, 'Yasushi Ishii', 128, 'Shine por Yasushi Ishii', 'World Without Logos por Yasushi Ishii'),
+(74, 'Nujabes', 129, 'Battlecry por Nujabes feat. Shing02', 'Failure por Fat Jon'),
+(75, 'MELL', 130, 'Red Fraction por MELL', 'Don\'t Look Behind por Edison'),
+(76, 'The Pillows', 131, 'Ride on Shooting Star por The Pillows', 'Little Busters por The Pillows'),
+(77, 'Toshio Masuda', 132, 'The Sore Feet Song por Ally Kerr', 'Shiver por Ally Kerr'),
+(78, 'Shunsuke Kikuchi', 133, 'Cha-La Head-Cha-La por Hironobu Kageyama', 'Detekoi Tobikiri Zenkai Power! por Manna'),
+(79, 'Kaoru Wada', 134, 'Change the World por V6', 'My Will por Dream'),
+(80, 'Yusuke Honma', 135, 'Sobakasu por Judy and Mary', 'Taiyou ga Mata Kagayaku Toki por Ryoko Shinohara'),
+(81, 'Yasuharu Takanashi', 136, 'Sakura Kiss por Chieko Kawabe', 'Shissou por AAA'),
+(82, 'Nana Kitade', 137, 'Rose por Nana Kitade', 'A Little Pain por Olivia Lufkin'),
+(83, 'Taku Matsushiba', 138, 'Again por Alexandros', 'Chime por Ai Ninomiya'),
+(84, 'Kenichiro Suehiro', 139, 'Can Do It! por GRANRODEO', 'Aoi Kioku por Kenichi Suzumura'),
+(85, 'Tatsuya Kato', 140, 'Rage on por OLDCODEX', 'Splash Free por STYLE FIVE'),
+(86, 'Makoto Yoshimori', 141, 'Guns & Roses por Paradise Lunch', 'Calling por Ivy'),
+(87, 'Kensuke Ushio', 142, 'Anytime Anywhere por Milet', 'Anytime Anywhere por Milet'),
+(88, 'Kanade Sato', 143, 'Idol por YOASOBI', 'Mephisto por Queen Bee'),
+(89, 'Franz Kirmann', 144, 'Let You Down por Dawid Podsiadlo', 'I Really Want to Stay at Your House por Rosa Walton'),
+(90, 'Kensuke Ushio', 145, 'Man Human por Denki Groove', 'Zetsubou Billy por Denki Groove'),
+(91, 'Hidekazu Kimura', 146, 'Driver\'s High por L\'Arc-en-Ciel', 'Samayoeru Kamishibai por Rider Chips'),
+(92, 'Toshihiko Sahashi', 147, 'Kimi ga Iru por Dish//', 'Nakushita Kotoba por Field of View'),
+(93, 'Yoshiaki Fujisawa', 148, 'Sayonara Gunjou por Konomi Suzuki', 'Cage por Yuiko Ohara'),
+(94, 'Katsuo Ogino', 149, 'Cagayake! GIRLS por Ho-kago Tea Time', 'Don\'t say lazy por Ho-kago Tea Time'),
+(95, 'Satoru Kousaki', 150, 'Bouken Desho Desho? por Aya Hirano', 'Hare Hare Yukai por elenco'),
+(96, 'Satoru Kousaki', 151, 'Renai Circulation por Kana Hanazawa', 'Sugar Sweet Nightmare por Kana Hanazawa'),
+(97, 'Asa (Kessoku Band)', 152, 'Seishun Complex por Kessoku Band', 'Distortion!! por Kessoku Band'),
+(98, 'Taku Inoue', 153, 'Judgement por Vaundy', 'Requiem por Yorushika'),
+(99, 'Junichi Sato (compositor)', 154, 'GRAND BLUE por Aho no Sakata', 'Kotoba ni Dekinai por elenco'),
+(100, 'Yuki Kajiura', 155, 'Connect por ClariS', 'Magia por Kalafina');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `diretor`
+-- Estrutura da tabela `diretor`
 --
 
 CREATE TABLE `diretor` (
@@ -557,7 +1173,7 @@ CREATE TABLE `diretor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `diretor`
+-- Extraindo dados da tabela `diretor`
 --
 
 INSERT INTO `diretor` (`IdDiretor`, `Nome`, `DataNascimento`, `Genero`, `Tipo`) VALUES
@@ -632,12 +1248,57 @@ INSERT INTO `diretor` (`IdDiretor`, `Nome`, `DataNascimento`, `Genero`, `Tipo`) 
 (69, 'Kow Otani', '1957-11-23', 'M', 'Banda Sonora'),
 (70, 'Ryo Takahashi', '1985-11-01', 'M', 'Banda Sonora'),
 (71, 'Katsushi Sakurabi', NULL, 'M', 'Animação'),
-(72, 'Fuuga Yamashiro', NULL, 'M', 'Animação');
+(72, 'Fuuga Yamashiro', NULL, 'M', 'Animação'),
+(73, 'Shinichiro Watanabe', '1965-05-24', 'M', 'Animação'),
+(74, 'Masaaki Yuasa', '1965-04-16', 'M', 'Animação'),
+(75, 'Akiyuki Shinbo', '1961-04-24', 'M', 'Animação'),
+(76, 'Tatsuya Ishihara', '1972-01-24', 'M', 'Animação'),
+(77, 'Sunao Katabuchi', '1960-08-19', 'M', 'Animação'),
+(78, 'Kenji Nagasaki', '1981-01-01', 'M', 'Animação'),
+(79, 'Haruo Sotozaki', '1973-01-01', 'M', 'Animação'),
+(80, 'Hiroshi Kojina', '1970-01-01', 'M', 'Animação'),
+(81, 'Hiroshi Hamasaki', '1972-01-01', 'M', 'Animação'),
+(82, 'Shuhei Morita', '1978-01-01', 'M', 'Animação'),
+(83, 'Shingo Natsume', '1980-01-01', 'M', 'Animação'),
+(84, 'Tomohiko Ito', '1975-01-01', 'M', 'Animação'),
+(85, 'Atsuko Ishizuka', '1979-09-19', 'F', 'Animação'),
+(86, 'Kyohei Ishiguro', '1979-01-01', 'M', 'Animação'),
+(87, 'Yuzuru Tachikawa', '1984-01-01', 'M', 'Animação'),
+(88, 'Masaharu Watanabe', '1972-01-01', 'M', 'Animação'),
+(89, 'Shuhei Yabuta', '1980-01-01', 'M', 'Animação'),
+(90, 'Mamoru Hatakeyama', '1982-01-01', 'M', 'Animação'),
+(91, 'Takaomi Kanasaki', '1972-01-01', 'M', 'Animação'),
+(92, 'Shinji Takamatsu', '1972-01-01', 'M', 'Animação'),
+(93, 'Shinji Ishihira', '1971-01-01', 'M', 'Animação'),
+(94, 'Tatsuya Yoshihara', '1973-01-01', 'M', 'Animação'),
+(95, 'Naokatsu Tsuda', '1968-01-01', 'M', 'Animação'),
+(96, 'Seiji Kishi', '1971-01-08', 'M', 'Animação'),
+(97, 'Ei Aoki', '1973-08-10', 'M', 'Animação'),
+(98, 'Naoyoshi Shiotani', '1974-01-01', 'M', 'Animação'),
+(99, 'Hiroyuki Imaishi', '1971-03-12', 'M', 'Animação'),
+(100, 'Kenichi Shimizu', '1969-01-01', 'M', 'Animação'),
+(101, 'Tomoki Kobayashi', '1976-01-01', 'M', 'Animação'),
+(102, 'Taichi Ishidate', '1973-01-01', 'M', 'Animação'),
+(103, 'Tatsuyuki Nagai', '1974-01-01', 'M', 'Animação'),
+(104, 'Tomokazu Jinbo', '1965-01-01', 'M', 'Animação'),
+(105, 'Kazuya Tsurumaki', '1966-04-25', 'M', 'Animação'),
+(106, 'Hiroshi Nagahama', '1968-01-01', 'M', 'Animação'),
+(107, 'Daisuke Nishio', '1954-08-18', 'M', 'Animação'),
+(108, 'Yasunao Aoki', '1966-01-01', 'M', 'Animação'),
+(109, 'Takuya Igarashi', '1970-11-28', 'M', 'Animação'),
+(110, 'Yoshihide Ibata', '1974-01-01', 'M', 'Animação'),
+(111, 'Shunsuke Tada', '1980-01-01', 'M', 'Animação'),
+(112, 'Hirotaka Mori', '1980-01-01', 'M', 'Animação'),
+(113, 'Kentaro Hara', '1980-01-01', 'M', 'Animação'),
+(114, 'Hiroyuki Kakudou', '1962-01-01', 'M', 'Animação'),
+(115, 'Manabu Okamoto', '1980-01-01', 'M', 'Animação'),
+(116, 'Naoko Yamada', '1984-08-28', 'F', 'Animação'),
+(117, 'Tetsuaki Watanabe', '1980-01-01', 'M', 'Animação');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estudioanimacao`
+-- Estrutura da tabela `estudioanimacao`
 --
 
 CREATE TABLE `estudioanimacao` (
@@ -648,16 +1309,18 @@ CREATE TABLE `estudioanimacao` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `estudioanimacao`
+-- Extraindo dados da tabela `estudioanimacao`
 --
 
 INSERT INTO `estudioanimacao` (`Nome`, `AnoFundado`, `Fundador`, `SiteOficial`) VALUES
+('8bit', 2008, 'Tsutomu Kasai', 'http://8bit-studio.co.jp'),
 ('A-1 Pictures', 2005, 'Masuo Ueda (via Aniplex)', 'https://a1p.jp'),
 ('ADV Films (Extinta)', 1992, 'John Ledford / Matt Greenfield / David Williams', 'Antigo: advfilms.com'),
 ('AIC (Anime International Company)', 1982, 'Toru Miura', 'https://www.anime-int.com'),
 ('Aniplex of America', 2005, 'Aniplex (Sony Music Entertainment Japan)', 'https://aniplexusa.com'),
 ('AQUA ARIS', 2017, 'Comitê Corporativo', 'http://aqua-aris.com'),
 ('Arms', 1996, 'Osamu Kaji', NULL),
+('Artland', 1978, 'Noboru Ishiguro', NULL),
 ('Ashi Productions (Production Reed)', 1975, 'Toshihiko Sato', 'http://www.ashi-pro.co.jp'),
 ('Asmik Ace', 1985, 'Sumitomo Corporation', 'https://www.asmik-ace.co.jp'),
 ('Bandai Entertainment (Extinta)', 1998, 'Bandai', 'Antigo: bandai-ent.com'),
@@ -668,19 +1331,24 @@ INSERT INTO `estudioanimacao` (`Nome`, `AnoFundado`, `Fundador`, `SiteOficial`) 
 ('BS Fuji', 1998, 'Fuji Media Holdings', 'https://www.bsfuji.tv'),
 ('Bushiroad', 2007, 'Takaaki Kidani', 'https://bushiroad.com'),
 ('CloverWorks', 2018, 'Aniplex (Masaaki Shimizu)', 'https://cloverworks.co.jp'),
+('David Production', 2007, 'Koji Kajita', 'http://davidproduction.jp'),
 ('Discotek Media', 2005, 'Corporação/Investidores', 'http://www.discotekmedia.com'),
 ('DLE', 2001, 'Ryuta Shiiki', 'https://dle.jp'),
+('Doga Kobo', 1973, 'Hideo Furusawa', 'http://www.dogakobo.com'),
+('Gainax', 1984, 'Hideaki Anno', 'http://www.gainax.co.jp'),
 ('Geidai Animation', 2008, 'Tokyo University of the Arts (Geidai)', 'http://animation.geidai.ac.jp'),
 ('Geneon Entertainment USA (Extinta)', 2003, 'Pioneer Corporation', 'Antigo: geneonanimation.com'),
 ('Gonzo', 1992, 'Shouji Murahama / Mahiro Maeda / Hiroshi Yamaguchi / Shinji Higuchi', 'http://www.gonzo.co.jp'),
 ('Hololive Production', 2017, 'Motoaki \"Yagoo\" Tanigo (Cover Corp)', 'https://hololive.hololivepro.com'),
 ('iQIYI', 2010, 'Gong Yu (Baichuan)', 'https://www.iqiyi.com'),
 ('J.C.Staff', 1986, 'Tomoyuki Miyata', 'https://www.jcstaff.co.jp'),
+('Kinema Citrus', 2008, 'Muneki Ogasawara', 'http://kinemacitrus.biz'),
 ('Kyoto Animation', 1981, 'Yoko Hatta / Hideaki Hatta', 'https://www.kyotoanimation.co.jp'),
 ('Lune-Pictures', 2011, 'Estúdio Independente', 'http://www.lune-pictures.co.jp'),
 ('Madhouse', 1972, 'Masao Maruyama / Osamu Dezaki / Rintaro / Yoshiaki Kawajiri', 'https://www.madhouse.co.jp'),
 ('Magic Bus', 1972, 'Satoshi Izumi', 'http://www.magicbus.co.jp'),
 ('Magic Capsule', 1999, 'Sadayoshi Fujino', 'http://www.magic-capsule.com'),
+('Manglobe', 2002, 'Shinichirou Kobayashi', NULL),
 ('MAPPA', 2011, 'Masao Maruyama', 'https://www.mappa.co.jp'),
 ('Mediabank', 1999, 'Corporação de Licenciamento', 'http://www.mediabank.co.jp'),
 ('Movic', 1983, 'Animate', 'https://www.movic.jp'),
@@ -692,9 +1360,11 @@ INSERT INTO `estudioanimacao` (`Nome`, `AnoFundado`, `Fundador`, `SiteOficial`) 
 ('Satelight', 1995, 'Michiaki Sato', 'http://www.satelight.co.jp'),
 ('Science SARU', 2013, 'Masaaki Yuasa / Eunyoung Choi', 'https://www.sciencesaru.com'),
 ('Seven', 2007, 'Toshihiro Hirano', 'http://www.studio-seven.co.jp'),
+('Shaft', 1975, 'Hiroshi Wakao', 'http://www.shaft-web.co.jp'),
 ('Showgate (Lantis/Bandai Namco)', 2005, 'Toshiba', 'http://www.showgate.jp'),
 ('Shueisha', 1925, 'Shogakukan', 'https://www.shueisha.co.jp'),
 ('SILVER LINK.', 2007, 'Hayato Kaneko', 'http://www.silverlink.co.jp'),
+('Studio Bind', 2019, 'White Fox & Egg Firm', 'http://www.st-bind.jp'),
 ('Studio Deen', 1975, 'Hiroshi Hasegawa', 'https://www.deen.co.jp'),
 ('Studio Gallop', 1978, 'Akio Wakana', 'http://www.anime-gallop.co.jp'),
 ('Studio Mausu', 2005, 'Mausu Promotion', 'http://www.mausu.net'),
@@ -712,14 +1382,18 @@ INSERT INTO `estudioanimacao` (`Nome`, `AnoFundado`, `Fundador`, `SiteOficial`) 
 ('TOHO', 1932, 'Ichizō Kobayashi', 'https://www.toho.co.jp'),
 ('TOHO animation', 2012, 'TOHO', 'https://tohoanimation.jp'),
 ('TOHO animation STUDIO', 2017, 'TOHO / OLM (colaboração)', 'https://tohoanimation.jp'),
+('Trigger', 2011, 'Hiroyuki Imaishi', 'http://www.st-trigger.co.jp'),
+('ufotable', 2000, 'Hikaru Kondo', 'http://www.ufotable.com'),
 ('Warner Bros. Japan', 1992, 'Warner Bros.', 'https://www.warnerbros.co.jp'),
+('White Fox', 2007, 'Gaku Iwasa', 'http://www.w-fox.co.jp'),
 ('Wit Studio', 2012, 'George Wada / Tetsuya Nakatake', 'https://www.witstudio.co.jp'),
-('Youku', 2006, 'Victor Koo', 'https://www.youku.com');
+('Youku', 2006, 'Victor Koo', 'https://www.youku.com'),
+('Zero-G', 2011, 'Hiroshi Negishi', 'http://zerog2.jp');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `generos`
+-- Estrutura da tabela `generos`
 --
 
 CREATE TABLE `generos` (
@@ -729,7 +1403,7 @@ CREATE TABLE `generos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `generos`
+-- Extraindo dados da tabela `generos`
 --
 
 INSERT INTO `generos` (`IdGenero`, `Nome`, `Descricao`) VALUES
@@ -755,142 +1429,142 @@ INSERT INTO `generos` (`IdGenero`, `Nome`, `Descricao`) VALUES
 (20, 'Hentai', 'Conteúdo estritamente pornográfico e adulto, focado em relações sexuais explícitas.');
 
 --
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `animediretor`
+-- Índices para tabela `animediretor`
 --
 ALTER TABLE `animediretor`
   ADD KEY `idAnime` (`idAnime`),
   ADD KEY `idDiretor` (`idDiretor`);
 
 --
--- Indexes for table `animeestudios`
+-- Índices para tabela `animeestudios`
 --
 ALTER TABLE `animeestudios`
   ADD KEY `estudio` (`estudio`),
   ADD KEY `IdAnime` (`IdAnime`);
 
 --
--- Indexes for table `animegeneros`
+-- Índices para tabela `animegeneros`
 --
 ALTER TABLE `animegeneros`
   ADD KEY `IdAnime` (`IdAnime`),
   ADD KEY `IdGenero` (`IdGenero`);
 
 --
--- Indexes for table `animes`
+-- Índices para tabela `animes`
 --
 ALTER TABLE `animes`
   ADD PRIMARY KEY (`IdAnime`);
 
 --
--- Indexes for table `animevozes`
+-- Índices para tabela `animevozes`
 --
 ALTER TABLE `animevozes`
   ADD KEY `IdAnime` (`IdAnime`),
   ADD KEY `IdAtorVoz` (`IdAtorVoz`);
 
 --
--- Indexes for table `atorvoz`
+-- Índices para tabela `atorvoz`
 --
 ALTER TABLE `atorvoz`
   ADD PRIMARY KEY (`IdAtorVoz`);
 
 --
--- Indexes for table `bandasonora`
+-- Índices para tabela `bandasonora`
 --
 ALTER TABLE `bandasonora`
   ADD PRIMARY KEY (`IdBandaSonora`),
   ADD KEY `bandasonora_ibfk_1` (`IdAnime`);
 
 --
--- Indexes for table `diretor`
+-- Índices para tabela `diretor`
 --
 ALTER TABLE `diretor`
   ADD PRIMARY KEY (`IdDiretor`);
 
 --
--- Indexes for table `estudioanimacao`
+-- Índices para tabela `estudioanimacao`
 --
 ALTER TABLE `estudioanimacao`
   ADD PRIMARY KEY (`Nome`);
 
 --
--- Indexes for table `generos`
+-- Índices para tabela `generos`
 --
 ALTER TABLE `generos`
   ADD PRIMARY KEY (`IdGenero`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `animes`
+-- AUTO_INCREMENT de tabela `animes`
 --
 ALTER TABLE `animes`
-  MODIFY `IdAnime` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `IdAnime` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
--- AUTO_INCREMENT for table `atorvoz`
+-- AUTO_INCREMENT de tabela `atorvoz`
 --
 ALTER TABLE `atorvoz`
-  MODIFY `IdAtorVoz` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
+  MODIFY `IdAtorVoz` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
 
 --
--- AUTO_INCREMENT for table `bandasonora`
+-- AUTO_INCREMENT de tabela `bandasonora`
 --
 ALTER TABLE `bandasonora`
-  MODIFY `IdBandaSonora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `IdBandaSonora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
--- AUTO_INCREMENT for table `diretor`
+-- AUTO_INCREMENT de tabela `diretor`
 --
 ALTER TABLE `diretor`
-  MODIFY `IdDiretor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `IdDiretor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
--- AUTO_INCREMENT for table `generos`
+-- AUTO_INCREMENT de tabela `generos`
 --
 ALTER TABLE `generos`
   MODIFY `IdGenero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- Constraints for dumped tables
+-- Restrições para despejos de tabelas
 --
 
 --
--- Constraints for table `animediretor`
+-- Limitadores para a tabela `animediretor`
 --
 ALTER TABLE `animediretor`
   ADD CONSTRAINT `animediretor_ibfk_1` FOREIGN KEY (`idAnime`) REFERENCES `animes` (`IdAnime`),
   ADD CONSTRAINT `animediretor_ibfk_2` FOREIGN KEY (`idDiretor`) REFERENCES `diretor` (`IdDiretor`);
 
 --
--- Constraints for table `animeestudios`
+-- Limitadores para a tabela `animeestudios`
 --
 ALTER TABLE `animeestudios`
   ADD CONSTRAINT `animeEstudios_ibfk_1` FOREIGN KEY (`estudio`) REFERENCES `estudioanimacao` (`Nome`),
   ADD CONSTRAINT `animeEstudios_ibfk_2` FOREIGN KEY (`IdAnime`) REFERENCES `animes` (`IdAnime`);
 
 --
--- Constraints for table `animegeneros`
+-- Limitadores para a tabela `animegeneros`
 --
 ALTER TABLE `animegeneros`
   ADD CONSTRAINT `AnimeGeneros_ibfk_1` FOREIGN KEY (`IdAnime`) REFERENCES `animes` (`IdAnime`),
   ADD CONSTRAINT `AnimeGeneros_ibfk_2` FOREIGN KEY (`IdGenero`) REFERENCES `generos` (`IdGenero`);
 
 --
--- Constraints for table `animevozes`
+-- Limitadores para a tabela `animevozes`
 --
 ALTER TABLE `animevozes`
   ADD CONSTRAINT `animevozes_ibfk_1` FOREIGN KEY (`IdAnime`) REFERENCES `animes` (`IdAnime`),
   ADD CONSTRAINT `animevozes_ibfk_2` FOREIGN KEY (`IdAtorVoz`) REFERENCES `atorvoz` (`IdAtorVoz`);
 
 --
--- Constraints for table `bandasonora`
+-- Limitadores para a tabela `bandasonora`
 --
 ALTER TABLE `bandasonora`
   ADD CONSTRAINT `bandasonora_ibfk_1` FOREIGN KEY (`IdAnime`) REFERENCES `animes` (`IdAnime`);
